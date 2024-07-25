@@ -1,44 +1,44 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"strings"
+    "bufio"
+    "fmt"
+    "os"
+    "strings"
 
-	"github.com/yeqown/go-qrcode/v2"
-	"github.com/yeqown/go-qrcode/writer/standard"
-	"github.com/yeqown/go-qrcode/writer/terminal"
+    "github.com/yeqown/go-qrcode/v2"
+    "github.com/yeqown/go-qrcode/writer/standard"
+    "github.com/yeqown/go-qrcode/writer/terminal"
 
-	"github.com/charmbracelet/lipgloss"
+    "github.com/charmbracelet/lipgloss"
 )
 
+// Style used for header
 var headStyle = lipgloss.NewStyle().
     Bold(true).
     Foreground(lipgloss.Color("#585B70")).
     Background(lipgloss.Color("#A6E3A1")).
     PaddingTop(1).
-    //PaddingRight(1).
     PaddingBottom(1).
-    //PaddingLeft(1).
     Width(80).
     Align(lipgloss.Center)
 
+// Style used when user asked for input
 var callToActStyle = lipgloss.NewStyle().
     Foreground(lipgloss.Color("#00FF00")).
     Blink(true)
 
+// For the help bar
 var helpStyle = lipgloss.NewStyle().
     Foreground(lipgloss.Color("#A6ADC8")).
     Background(lipgloss.Color("#45475A")).
     PaddingTop(1).
-    //PaddingRight(1).
     PaddingBottom(1).
-    //PaddingLeft(1).
     Width(80).
     Align(lipgloss.Center)
 
 
+// Generates the QRCode and outputs to stdout (Visual in the terminal)
 func GenQRTerm(data string) {
     qrc, _ := qrcode.New(data)
 
@@ -49,6 +49,7 @@ func GenQRTerm(data string) {
     }
 }
 
+// Export the generated QRCode to an image file
 func GenQRFile(data string, path string) {
     qrc, err := qrcode.New(data)
     if err != nil {
