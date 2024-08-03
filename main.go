@@ -90,18 +90,29 @@ func main() {
         return
     }
 
-    if err := GenQRTerm(data); err != nil {
-        fmt.Println(err)
-        return
-    }
-
-    path, err := promptUser(callToActStyle, "Enter the path & filename to save:")
+    output, err := promptUser(callToActStyle, "Choose an output option (1 or 2):\n1. Terminal\n2. Image file")
     if err != nil {
         fmt.Println(err)
         return
     }
 
-    if err := GenQRFile(data, path); err != nil {
-        fmt.Println(err)
+    if output == "1" {
+        if err := GenQRTerm(data); err != nil {
+            fmt.Println(err)
+            return
+        }
+    } else if output == "2" {
+        path, err := promptUser(callToActStyle, "Enter the path & filename to save:")
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+
+        if err := GenQRFile(data, path); err != nil {
+            fmt.Println(err)
+        }
+    } else {
+        fmt.Println(callToActStyle.Render("Incorrect Option Selected"))
+        return
     }
 }
